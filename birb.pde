@@ -1,28 +1,24 @@
 class Bird{
-    float x,y;
+    float x = 200;
+    float y = 400;
 
     //speed
-    float base_s;
-    float speed;
-    float gravity;
+    float base_s = -6; //the default speed
+    float speed = base_s; //speed that gets added to the bird's y, which is how it moves and how gravity works
+    float gravity = 0.3; //changes the speed
     
     //aesthetics
     float size;
     color body_color;
 
-    Bird(){ //default
-        x = 200;
-        y = 400;
-        base_s = -7;
-        speed = 4;
-        size = 50;
-        gravity = 0.3;
-        body_color = color(200,200,0);
+    Bird(color c){ //choose the color
+        size = 25; //RADUIS of the bird, which is a circle
+        body_color = c;
     }
 
     void display(){
         fill(body_color);
-        circle(x,y,50);
+        circle(x,y,size*2+5); //+5 makes it easier for the player to judge distance
     }
 
     void down(){
