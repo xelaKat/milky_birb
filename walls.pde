@@ -1,16 +1,25 @@
 class Wall{
     float x = 800;
     float y;
-    float w = 50;
+    float w = 51; //width and height are used for collision logic
     float h = 600;
+    
+    int random = int(random(0,3)); //determines the image of the wall
 
     Wall(float _y){
         y = _y;
     }
 
     void display(){
-        fill(255);
-        rect(x, y, w, h);
+        if(random == 0){
+            image(wall1, x,y);
+        }
+        if(random == 1){
+            image(wall2, x,y);
+        }
+        if(random == 2){
+            image(wall3, x,y);
+        }
     }
 
     void move(){
