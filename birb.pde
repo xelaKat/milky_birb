@@ -3,9 +3,9 @@ class Bird{
     float y = 400;
 
     //speed
-    float base_s = -6; //the default speed
+    float base_s = -7; //the default speed
     float speed = base_s; //speed that gets added to the bird's y, which is how it moves and how gravity works
-    float gravity = 0.3; //changes the speed
+    float gravity = 0.4; //changes the speed
     
     //aesthetics
     float size;
@@ -18,12 +18,12 @@ class Bird{
 
     void display(){
         fill(body_color);
-        circle(x,y,size*2+5); //+5 makes it easier for the player to judge distance
+        circle(x,y,size*2);
     }
 
     void down(){
         y+=speed;
-        if(speed<10){
+        if(speed<15){
             speed += gravity;
         }
     }
@@ -31,5 +31,10 @@ class Bird{
     void up(){
         speed = base_s;
         y+=speed;
+    }
+
+    void death(){
+        y+=speed;
+        speed+=gravity;
     }
 }
