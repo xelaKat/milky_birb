@@ -3,14 +3,35 @@
 void pregame(){ //the title screen
     background(milky);
 
+    //FOG!!! This plays on all screens
+    if(fog_count%180==0){
+      fog.add(new Fog()); //creates fog every 3 seconds
+    }
+
+    for(int i = fog.size()-1; i>-1; i--){ //displays all fog, moves them, and deletes them
+      fog.get(i).display();
+      fog.get(i).move();
+
+      if(fog.get(i).x < -250){ //removes fog that goes off screen
+        fog.remove(i);
+      }
+    }
+
+    //Title
     textSize(90);
     fill(255);
     text("FLAPPY BIRD", 400,200);
 
-    textSize(60);
-    text("but it's the milky way", 400,350);
+    textSize(50);
+    text("but it's the milky way", 400,270);
+
+    //Description
+    textSize(24);
+    text("Navigate the universe without crashing and bending", 400,400);
+    text("the space-time continuum!", 400,430);
 
     //start button
+    textSize(60);
     fill(0);
     rect(400-textWidth("start"),540,2*textWidth("start"),90);
     fill(255);
@@ -27,6 +48,7 @@ void pregame(){ //the title screen
         delay(500); //wait half asecond
         pregame = false;
         game_start = true;
+        wait = true; //the game waits until the player starts to spawn walls and apply gravity
       }
     }
 }
@@ -35,6 +57,20 @@ void pregame(){ //the title screen
 
 void game_over(){
     background(milky);
+
+    //FOG!!! This plays on all screens
+    if(fog_count%180==0){
+      fog.add(new Fog()); //creates fog every 3 seconds
+    }
+
+    for(int i = fog.size()-1; i>-1; i--){ //displays all fog, moves them, and deletes them
+      fog.get(i).display();
+      fog.get(i).move();
+
+      if(fog.get(i).x < -250){ //removes fog that goes off screen
+        fog.remove(i);
+      }
+    }
 
     for(Wall w: walls){ //displays all walls
         w.display();
@@ -74,6 +110,7 @@ void game_over(){
         delay(500); //wait half asecond
         game_start = true;
         game_over = false;
+        wait = true; //the game waits until the player starts to spawn walls and apply gravity
       }
     }
 
@@ -104,6 +141,7 @@ void game_over(){
         delay(500); //wait half asecond
         pregame = true;
         game_over = false;
+        wait = true; //the game waits until the player starts to spawn walls and apply gravity
       }
     }
 }
