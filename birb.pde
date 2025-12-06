@@ -23,6 +23,9 @@ class Bird{
 
     void down(){
         y+=speed;
+        if(collision_x && collision_y){
+            y-=speed;
+        }
         if(speed<15){
             speed += gravity;
         }
@@ -31,10 +34,15 @@ class Bird{
     void up(){
         speed = base_s;
         y+=speed;
+        if(collision_x && collision_y){
+            y-=speed;
+        }
     }
 
     void death(){
-        y+=speed;
-        speed+=gravity;
+        if(y<=850){
+            y+=speed;
+            speed+=gravity*2;
+        }
     }
 }
