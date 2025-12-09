@@ -1,7 +1,11 @@
 //// Variables ////
 
+//bird/the player character
 Bird[] bird;
 int chosen = 3; //determines which bird is playing
+PImage chick;
+PImage chick_death; //chick but upside down
+PImage big_chick; //big chick for the character selection screen
 
 //walls
 ArrayList<Wall> walls;
@@ -27,6 +31,7 @@ PImage way;
 float score = 0; //your score
 
 boolean pregame = true;
+boolean selection = false;
 boolean game_start = false;
 boolean game_over = false; //shows the end screen
 boolean wait = false; //waits to start spawning walls until the player starts
@@ -35,15 +40,18 @@ boolean collision_x; //collision variables for the player
 boolean collision_y;
 
 void setup(){
-  size(800, 800);
+  size(800,800);
   textAlign(CENTER);
   noStroke();
   pixelDensity(1);
 
   //players
+  chick = loadImage("chick.png");
+  chick_death = loadImage("chick_death.png");
+  big_chick = loadImage("big_chick.png");
   Bird p1 = new Bird(color(255, 0, 0));
   Bird p2 = new Bird(color(0, 255, 0));
-  Bird p3 = new Bird(color(0, 0, 255));
+  Bird p3 = new Bird(chick);
   Bird p4 = new Bird(color(200, 200, 0));
 
   Bird[] b = {p1, p2, p3, p4};
@@ -77,9 +85,9 @@ void draw(){
     pregame();
   }
   
-  //if(selection){
-  //  selection();
-  //}
+  if(selection){
+    selection();
+  }
 
   else if(game_start){
     background(0); //in case the image fails lol
@@ -101,34 +109,18 @@ void draw(){
 
     //Walls
     //basically the same code as fog
-    if(frameCount%90==0){ //creats new walls every 1.5 seconds
+    if(frameCount%90==30){ //creats new walls every 1.5 seconds - modulo == 30 because then the walls will spawn half a second after the player presses the space bar
       float _y = random(-500, 0);
       walls.add(new Wall(_y));
       walls.add(new Wall(_y+800));
     }
 
     for(int i = walls.size()-1; i>-1; i--){ //displays all walls, moves them, and deletes them
-      walls.get(i).display();
       walls.get(i).move();
+      walls.get(i).display();
 
-      if (walls.get(i).x < -walls.get(i).w){ //removes walls that go off screen
+      if(walls.get(i).x < -walls.get(i).w){ //removes walls that go off screen
         walls.remove(i);
-      }
-    }
-
-    //collision logic and score system
-    for (Wall w : walls) {
-      if (bird[chosen].x == w.x + w.w){ //score
-        score+=0.5; //adds 0.5 because for some reason this runs twice whenever it is true
-      }
-
-      //collision
-       collision_x = w.x <= bird[chosen].x + bird[chosen].size && w.x + w.w >= bird[chosen].x - bird[chosen].size;
-       collision_y = w.y <= bird[chosen].y + bird[chosen].size && w.y + w.h >= bird[chosen].y - bird[chosen].size;
-      if (collision_x && collision_y){
-        game_start = false;
-        game_over = true;
-        delay(500); //wait half a second - delay calculates using thousanths of a second
       }
     }
 
@@ -148,11 +140,31 @@ void draw(){
     }
     else{ //if the waiting time is over, gravity is applied, the score is shown, and the walls start appearing - they didn't earlier because wait kept the frameCount at 0, and walls rely on the frameCount to be generated
       bird[chosen].down(); //applies gravity
+
+      //display score
       textSize(50);
+      fill(255);
       text(int(score), 400, 100);
     }
 
     bird[chosen].display(); //displays the bird
+
+    //collision logic and score system
+    //this logic is at the very end so that the player can see all the elements on screen and accurately judge the distance between hitboxes
+    for (Wall w : walls) {
+      if (bird[chosen].x == w.x + w.w){ //score
+        score+=0.5; //adds 0.5 because there are two walls for each 'whole' column
+      }
+
+      //collision
+      collision_x = w.x <= bird[chosen].x + bird[chosen].size && w.x + w.w >= bird[chosen].x - bird[chosen].size;
+      collision_y = w.y <= bird[chosen].y + bird[chosen].size && w.y + w.h >= bird[chosen].y - bird[chosen].size;
+      if (collision_x && collision_y){
+        game_start = false;
+        game_over = true;
+        delay(500); //wait half a second - delay calculates using thousanths of a second
+      }
+    }
   } 
 
   else if(game_over){ //end screen
