@@ -44,16 +44,116 @@ void pregame(){ //the title screen
       fill(0);
       text("START", 400,600);
 
-      if(mousePressed){ //if the button is clicked, start the game
+      if(mousePressed){ //if the button is clicked, go to character selection screen
         delay(500); //wait half asecond
         pregame = false;
-        game_start = true;
-        wait = true; //the game waits until the player starts to spawn walls and apply gravity
+        selection = true;
       }
     }
 }
 
-//void selection{} //character selection screen
+void selection(){ //character selection screen
+  background(milky);
+
+  //FOG!!! This plays on all screens
+  if(fog_count%180==0){
+    fog.add(new Fog()); //creates fog every 3 seconds
+  }
+
+  for(int i = fog.size()-1; i>-1; i--){ //displays all fog, moves them, and deletes them
+    fog.get(i).display();
+    fog.get(i).move();
+
+    if(fog.get(i).x < -250){ //removes fog that goes off screen
+      fog.remove(i);
+    }
+  }
+
+  //Character selection
+    textSize(60);
+    fill(255);
+    text("Choose your character", 400,420);
+
+    //character cards:
+
+    //// CHARACTER 1 ////
+    stroke(255);
+    noFill();
+    rect(50,50,300,300,30); //the last 30 gives the rect rounded corners - same for all the other character rectangles
+    //character 1
+
+    if(mouseX>=50 && mouseX<=350 && mouseY>=50 && mouseY<=350){ //if mouse hovers over this character
+      fill(255,50);
+      rect(50,50,300,300,30);
+      if(mousePressed){ //chooses the character and starts the game
+        chosen = 0;
+        noStroke();
+        
+        delay(500); //waits half a second
+        selection = false;
+        game_start = true;
+        wait = true; //the game waits until the player starts to spawn walls and apply gravity
+      }
+    }
+
+    //// CHARACTER 2 ////
+    noFill();
+    rect(450,50,300,300,30);
+    //character 2
+
+    if(mouseX>=450 && mouseX<=750 && mouseY>=50 && mouseY<=350){ //if mouse hovers over this character
+      fill(255,50);
+      rect(450,50,300,300,30);
+      if(mousePressed){ //chooses the character and starts the game
+        chosen = 1;
+        noStroke();
+        
+        delay(500); //waits half a second
+        selection = false;
+        game_start = true;
+        wait = true; //the game waits until the player starts to spawn walls and apply gravity
+      }
+    }
+
+    //// CHARACTER 3 ////
+    noFill();
+    rect(50,450,300,300,30);
+    image(big_chick,50,450); //character 3
+
+    if(mouseX>=50 && mouseX<=350 && mouseY>=450 && mouseY<=750){ //if mouse hovers over this character
+      fill(255,50);
+      rect(50,450,300,300,30);
+      if(mousePressed){ //chooses the character and starts the game
+        chosen = 2;
+        noStroke();
+        
+        delay(500); //waits half a second
+        selection = false;
+        game_start = true;
+        wait = true; //the game waits until the player starts to spawn walls and apply gravity
+      }
+    }
+
+    //// CHARACTER 4 ////
+    noFill();
+    rect(450,450,300,300,30);
+    //character 4
+
+    if(mouseX>=450 && mouseX<=750 && mouseY>=450 && mouseY<=750){ //if mouse hovers over this character
+      fill(255,50);
+      rect(450,450,300,300,30);
+      if(mousePressed){ //chooses the character and starts the game
+        chosen = 3;
+        noStroke();
+        
+        delay(500); //waits half a second
+        selection = false;
+        game_start = true;
+        wait = true; //the game waits until the player starts to spawn walls and apply gravity
+      }
+    }
+
+}
 
 void game_over(){
     background(milky);
@@ -138,7 +238,7 @@ void game_over(){
             walls.remove(i);
         }
 
-        delay(500); //wait half asecond
+        delay(500); //wait half a second
         pregame = true;
         game_over = false;
         wait = true; //the game waits until the player starts to spawn walls and apply gravity
