@@ -16,16 +16,25 @@ class Bird{
         body_color = c;
     }
 
+    Bird(PImage i){
+        size = 25; //measurement used for collision logic
+    }
+
     void display(){
-        fill(body_color);
-        circle(x,y,size*2);
+        if(chosen==2){ 
+            image(chick, x-size-5,y-size-5);
+            if(game_over){
+                image(chick_death, x-size-5, y-size-5);
+            } 
+        }
+        else{
+            fill(body_color);
+            circle(x,y,size*2);
+        }
     }
 
     void down(){
         y+=speed;
-        if(collision_x && collision_y){
-            y-=speed;
-        }
         if(speed<15){
             speed += gravity;
         }
@@ -34,9 +43,6 @@ class Bird{
     void up(){
         speed = base_s;
         y+=speed;
-        if(collision_x && collision_y){
-            y-=speed;
-        }
     }
 
     void death(){
