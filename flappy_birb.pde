@@ -29,6 +29,7 @@ PImage milky;
 PImage way;
 
 float score = 0; //your score
+float highscore = 0; //your highscore
 
 boolean pregame = true;
 boolean selection = false;
@@ -94,8 +95,8 @@ void draw(){
     background(milky);
 
     //FOG!!! This plays on all screens
-    if(fog_count%180==0){
-      fog.add(new Fog()); //creates fog every 3 seconds
+    if(fog_count%300==0){
+      fog.add(new Fog()); //creates fog every 5 seconds
     }
 
     for(int i = fog.size()-1; i>-1; i--){ //displays all fog, moves them, and deletes them
@@ -162,6 +163,9 @@ void draw(){
       if (collision_x && collision_y){
         game_start = false;
         game_over = true;
+        if(score>highscore){ //sets your highscore
+          highscore = score;
+        }
         delay(500); //wait half a second - delay calculates using thousanths of a second
       }
     }
