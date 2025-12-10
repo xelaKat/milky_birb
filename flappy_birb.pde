@@ -1,8 +1,13 @@
 //// Variables ////
+PFont font1;
+PFont font2;
 
 //bird/the player character
 Bird[] bird;
 int chosen = 3; //determines which bird is playing
+PImage moonfish;
+PImage moonfish_death; //moonfish but upside down
+PImage big_moonfish; //big moonfish for the character selection screen
 PImage chick;
 PImage chick_death; //chick but upside down
 PImage big_chick; //big chick for the character selection screen
@@ -42,15 +47,27 @@ boolean collision_y;
 
 void setup(){
   size(800,800);
+
+  //font/text
+  font1 = createFont("YouthTouch.ttf",24); //imports my font
+  textFont(font1);
+  font2 = createFont("StylishCalligraphy.ttf",24); //another font
   textAlign(CENTER);
+
   noStroke();
   pixelDensity(1);
 
-  //players
+  //player variables
+  moonfish = loadImage("moonfish.png");
+  moonfish_death = loadImage("moonfish_death.png");
+  big_moonfish = loadImage("big_moonfish.png");
+  big_moonfish.resize(290,290); //the png is a little too big
+
   chick = loadImage("chick.png");
   chick_death = loadImage("chick_death.png");
   big_chick = loadImage("big_chick.png");
-  Bird p1 = new Bird(color(255, 0, 0));
+
+  Bird p1 = new Bird(moonfish);
   Bird p2 = new Bird(color(0, 255, 0));
   Bird p3 = new Bird(chick);
   Bird p4 = new Bird(color(200, 200, 0));
@@ -82,12 +99,12 @@ void setup(){
 }
 
 void draw(){
-  if(pregame){ //title screen
-    pregame();
-  }
-  
-  if(selection){
+  if(selection){ //selection screen - comes before title screen to make sure it won't get skipped by the mouse clicking logic
     selection();
+  }
+
+  else if(pregame){ //title screen
+    pregame();
   }
 
   else if(game_start){
@@ -135,7 +152,7 @@ void draw(){
 
     if(wait){ //wait is triggered when the game starts/restarts. It makes the walls and gravity wait until the player presses the space bar to jump, just like the original game
       fill(255);
-      textSize(24);
+      textSize(40);
       text("SPACE bar to jump", 350,400);
       frameCount = 0;
     }
@@ -143,9 +160,11 @@ void draw(){
       bird[chosen].down(); //applies gravity
 
       //display score
-      textSize(50);
+      textFont(font2);
+      textSize(80);
       fill(255);
-      text(int(score), 400, 100);
+      text(int(score), 400, 150);
+      textFont(font1);
     }
 
     bird[chosen].display(); //displays the bird
@@ -161,11 +180,11 @@ void draw(){
       collision_x = w.x <= bird[chosen].x + bird[chosen].size && w.x + w.w >= bird[chosen].x - bird[chosen].size;
       collision_y = w.y <= bird[chosen].y + bird[chosen].size && w.y + w.h >= bird[chosen].y - bird[chosen].size;
       if (collision_x && collision_y){
-        game_start = false;
-        game_over = true;
         if(score>highscore){ //sets your highscore
           highscore = score;
         }
+        game_start = false;
+        game_over = true;
         delay(500); //wait half a second - delay calculates using thousanths of a second
       }
     }
