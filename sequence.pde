@@ -18,36 +18,38 @@ void pregame(){ //the title screen
     }
 
     //Title
-    textSize(90);
+    textSize(140);
     fill(255);
     text("FLAPPY BIRD", 400,200);
 
-    textSize(50);
+    textSize(80);
     text("but it's the milky way", 400,270);
 
     //Description
-    textSize(30);
-    text("Navigate the universe without crashing and bending", 400,400);
-    text("the space-time continuum!", 400,430);
+    textFont(font2);
+    textSize(35);
+    text("Navigate the universe without crashing and bending", 400,395);
+    text("the space-time continuum!", 400,435);
+    textFont(font1);
 
     //start button
-    textSize(60);
+    textSize(80);
     fill(0);
-    rect(400-textWidth("start"),540,2*textWidth("start"),90);
+    rect(400-textWidth("start "),540,2*textWidth("start "),90);
     fill(255);
     text("START", 400,600);
 
     //if the mouse hovers over the start button: inverse the colors
-    if(mouseX>=400-textWidth("start") && mouseX<=400+textWidth("start") && mouseY>=540 && mouseY<=630){
+    if(mouseX>=400-textWidth("start ") && mouseX<=400+textWidth("start ") && mouseY>=540 && mouseY<=630){
       fill(255);
-      rect(400-textWidth("start"),540,2*textWidth("start"),90);
+      rect(400-textWidth("start "),540,2*textWidth("start "),90);
       fill(0);
       text("START", 400,600);
 
       if(mousePressed){ //if the button is clicked, go to character selection screen
-        delay(500); //wait half asecond
         pregame = false;
         selection = true;
+        delay(500); //wait half asecond
       }
     }
 }
@@ -70,7 +72,7 @@ void selection(){ //character selection screen
   }
 
   //Character selection
-    textSize(60);
+    textSize(80);
     fill(255);
     text("Choose your character", 400,420);
 
@@ -80,7 +82,7 @@ void selection(){ //character selection screen
     stroke(255);
     noFill();
     rect(50,50,300,300,30); //the last 30 gives the rect rounded corners - same for all the other character rectangles
-    //character 1
+    image(big_moonfish, 55,55); // character 1
 
     if(mouseX>=50 && mouseX<=350 && mouseY>=50 && mouseY<=350){ //if mouse hovers over this character
       fill(255,50);
@@ -181,7 +183,7 @@ void game_over(){
 
     //GAME OVER text
     fill(255);
-    textSize(80);
+    textSize(120);
     text("GAME OVER", 400,250);
 
     //final score and highscore
@@ -191,21 +193,23 @@ void game_over(){
     noStroke();
 
     fill(255);
-    textSize(40);
+    textFont(font2);
+    textSize(50);
     text("Final Score: " + int(score), 400,350);
     text("Highscore: " + int(highscore), 400,400);
+    textFont(font1);
 
     ////restart button////
-    textSize(60);
+    textSize(80);
     fill(0);
-    rect(400-textWidth("restart"),490,2*textWidth("restart"),90);
+    rect(400-textWidth("restart "),490,2*textWidth("restart "),90);
     fill(255);
     text("RESTART", 400,550);
 
     //if the mouse hovers over the restart button: inverse the colors
-    if(mouseX>=400-textWidth("restart") && mouseX<=400+textWidth("restart") && mouseY>=490 && mouseY<=580){
+    if(mouseX>=400-textWidth("restart ") && mouseX<=400+textWidth("restart ") && mouseY>=490 && mouseY<=580){
       fill(255);
-      rect(400-textWidth("restart"),490,2*textWidth("restart"),90);
+      rect(400-textWidth("restart "),490,2*textWidth("restart "),90);
       fill(0);
       text("RESTART", 400,550);
 
@@ -227,16 +231,16 @@ void game_over(){
     }
 
     ////exit button////
-    textSize(60);
+    textSize(80);
     fill(0);
-    rect(400-textWidth("exit"),590,2*textWidth("exit"),90);
+    rect(400-textWidth("exit "),590,2*textWidth("exit "),90);
     fill(255);
     text("EXIT", 400,650);
 
-    //if the mouse hovers over the restart button: inverse the colors
-    if(mouseX>=400-textWidth("exit") && mouseX<=400+textWidth("exit") && mouseY>=590 && mouseY<=680){
+    //if the mouse hovers over the exit button: inverse the colors
+    if(mouseX>=400-textWidth("exit ") && mouseX<=400+textWidth("exit ") && mouseY>=590 && mouseY<=680){
       fill(255);
-      rect(400-textWidth("exit"),590,2*textWidth("exit"),90);
+      rect(400-textWidth("exit "),590,2*textWidth("exit "),90);
       fill(0);
       text("EXIT", 400,650);
 
