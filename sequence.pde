@@ -4,8 +4,8 @@ void pregame(){ //the title screen
     background(milky);
 
     //FOG!!! This plays on all screens
-    if(fog_count%180==0){
-      fog.add(new Fog()); //creates fog every 3 seconds
+    if(fog_count%300==0){
+      fog.add(new Fog()); //creates fog every 5 seconds
     }
 
     for(int i = fog.size()-1; i>-1; i--){ //displays all fog, moves them, and deletes them
@@ -26,7 +26,7 @@ void pregame(){ //the title screen
     text("but it's the milky way", 400,270);
 
     //Description
-    textSize(24);
+    textSize(30);
     text("Navigate the universe without crashing and bending", 400,400);
     text("the space-time continuum!", 400,430);
 
@@ -56,8 +56,8 @@ void selection(){ //character selection screen
   background(milky);
 
   //FOG!!! This plays on all screens
-  if(fog_count%180==0){
-    fog.add(new Fog()); //creates fog every 3 seconds
+  if(fog_count%300==0){
+    fog.add(new Fog()); //creates fog every 5 seconds
   }
 
   for(int i = fog.size()-1; i>-1; i--){ //displays all fog, moves them, and deletes them
@@ -159,8 +159,8 @@ void game_over(){
     background(milky);
 
     //FOG!!! This plays on all screens
-    if(fog_count%180==0){
-      fog.add(new Fog()); //creates fog every 3 seconds
+    if(fog_count%300==0){
+      fog.add(new Fog()); //creates fog every 5 seconds
     }
 
     for(int i = fog.size()-1; i>-1; i--){ //displays all fog, moves them, and deletes them
@@ -179,9 +179,21 @@ void game_over(){
     bird[chosen].death(); //the bird dies :(
     bird[chosen].display(); //displays the bird
 
+    //GAME OVER text
     fill(255);
-    textSize(90);
-    text("GAME OVER", 400, 300); //GAME OVER text
+    textSize(80);
+    text("GAME OVER", 400,250);
+
+    //final score and highscore
+    fill(255,30);
+    stroke(255);
+    rect(200,290,400,150,30);
+    noStroke();
+
+    fill(255);
+    textSize(40);
+    text("Final Score: " + int(score), 400,350);
+    text("Highscore: " + int(highscore), 400,400);
 
     ////restart button////
     textSize(60);
