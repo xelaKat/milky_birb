@@ -21,13 +21,19 @@ class Bird{
     }
 
     void display(){
-        if(chosen==2){ 
+        if(chosen==0){
+            image(moonfish, x-size-5, y-size-5);
+            if(game_over){
+                image(moonfish_death, x-size-5, y-size-5);
+            }
+        }
+        else if(chosen==2){ 
             image(chick, x-size-5,y-size-5);
             if(game_over){
                 image(chick_death, x-size-5, y-size-5);
             } 
         }
-        else{
+        else{ //in case the image fails lol
             fill(body_color);
             circle(x,y,size*2);
         }
