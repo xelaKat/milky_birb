@@ -82,7 +82,7 @@ void selection(){ //character selection screen
     stroke(255);
     noFill();
     rect(50,50,300,300,30); //the last 30 gives the rect rounded corners - same for all the other character rectangles
-    image(big_moonfish, 55,55); // character 1
+    image(big_moonfish, 55,55); //character 1: moonfish
 
     if(mouseX>=50 && mouseX<=350 && mouseY>=50 && mouseY<=350){ //if mouse hovers over this character
       fill(255,50);
@@ -101,7 +101,7 @@ void selection(){ //character selection screen
     //// CHARACTER 2 ////
     noFill();
     rect(450,50,300,300,30);
-    //character 2
+    image(big_axolotl, 450,50); //character 2: axolotl
 
     if(mouseX>=450 && mouseX<=750 && mouseY>=50 && mouseY<=350){ //if mouse hovers over this character
       fill(255,50);
@@ -120,7 +120,7 @@ void selection(){ //character selection screen
     //// CHARACTER 3 ////
     noFill();
     rect(50,450,300,300,30);
-    image(big_chick,50,450); //character 3
+    image(big_chick,50,450); //character 3: chick in spaceship
 
     if(mouseX>=50 && mouseX<=350 && mouseY>=450 && mouseY<=750){ //if mouse hovers over this character
       fill(255,50);
@@ -139,7 +139,7 @@ void selection(){ //character selection screen
     //// CHARACTER 4 ////
     noFill();
     rect(450,450,300,300,30);
-    //character 4
+    image(big_earth, 450,450); //character 4: earth
 
     if(mouseX>=450 && mouseX<=750 && mouseY>=450 && mouseY<=750){ //if mouse hovers over this character
       fill(255,50);
