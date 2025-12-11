@@ -2,15 +2,25 @@
 PFont font1;
 PFont font2;
 
-//bird/the player character
+//bird aka the playable character
 Bird[] bird;
-int chosen = 3; //determines which bird is playing
+int chosen = 1; //determines which bird is playing
+//character 1
 PImage moonfish;
 PImage moonfish_death; //moonfish but upside down
 PImage big_moonfish; //big moonfish for the character selection screen
+//character 2
+PImage axolotl;
+PImage axolotl_death; //axolotl but upside down
+PImage big_axolotl; //big axolotl for the character selection screen
+//character 3
 PImage chick;
 PImage chick_death; //chick but upside down
 PImage big_chick; //big chick for the character selection screen
+//character 4
+PImage earth;
+PImage earth_death; //earth but upside down
+PImage big_earth; //big earth for the character selection screen
 
 //walls
 ArrayList<Wall> walls;
@@ -57,20 +67,32 @@ void setup(){
   noStroke();
   pixelDensity(1);
 
-  //player variables
+  //bird / player variables
+  //character 1
   moonfish = loadImage("moonfish.png");
   moonfish_death = loadImage("moonfish_death.png");
   big_moonfish = loadImage("big_moonfish.png");
   big_moonfish.resize(290,290); //the png is a little too big
 
+  //character 2
+  axolotl = loadImage("axolotl.png");
+  axolotl_death = loadImage("axolotl_death.png");
+  big_axolotl = loadImage("big_axolotl.png");
+
+  //character 3
   chick = loadImage("chick.png");
   chick_death = loadImage("chick_death.png");
   big_chick = loadImage("big_chick.png");
 
+  //character 4
+  earth = loadImage("earth.png");
+  earth_death = loadImage("earth_death.png");
+  big_earth = loadImage("big_earth.png");
+
   Bird p1 = new Bird(moonfish);
-  Bird p2 = new Bird(color(0, 255, 0));
+  Bird p2 = new Bird(axolotl);
   Bird p3 = new Bird(chick);
-  Bird p4 = new Bird(color(200, 200, 0));
+  Bird p4 = new Bird(earth);
 
   Bird[] b = {p1, p2, p3, p4};
   bird = b;
