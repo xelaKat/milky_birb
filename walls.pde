@@ -1,12 +1,12 @@
 class Wall{
-    float x = 800;
+    float x = 800; //spawns at the edge of the screen
     float y;
     float w = 51; //width and height are used for collision logic
     float h = 600;
     
     int random = int(random(0,3)); //determines the image of the wall
 
-    Wall(float _y){
+    Wall(float _y){ //creats wall - only controls y variable, x controls itself
         y = _y;
     }
 
@@ -22,7 +22,7 @@ class Wall{
         }
     }
 
-    void move(){
+    void move(){ //walls move to create the illusion that the player is going forward
         x-=3;
     }
 }
