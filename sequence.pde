@@ -1,9 +1,9 @@
-//This is where all game events, except for the actual game code, is located
+// * This is where all game events, except for the actual game code, is located * //
 
 void pregame(){ //the title screen
     background(milky);
 
-    //FOG!!! This plays on all screens
+    //FOG!!! This plays on all screens//
     if(fog_count%300==0){
       fog.add(new Fog()); //creates fog every 5 seconds
     }
@@ -22,6 +22,7 @@ void pregame(){ //the title screen
     fill(255);
     text("FLAPPY BIRD", 400,200);
 
+    //Caption
     textSize(80);
     text("but it's the milky way", 400,270);
 
@@ -49,7 +50,7 @@ void pregame(){ //the title screen
       if(mousePressed){ //if the button is clicked, go to character selection screen
         pregame = false;
         selection = true;
-        delay(500); //wait half asecond
+        delay(500); //wait half a second
       }
     }
 }
@@ -57,7 +58,7 @@ void pregame(){ //the title screen
 void selection(){ //character selection screen
   background(milky);
 
-  //FOG!!! This plays on all screens
+  //FOG!!! This plays on all screens//
   if(fog_count%300==0){
     fog.add(new Fog()); //creates fog every 5 seconds
   }
@@ -77,7 +78,6 @@ void selection(){ //character selection screen
     text("Choose your character", 400,420);
 
     //character cards:
-
     //// CHARACTER 1 ////
     stroke(255);
     noFill();
@@ -87,6 +87,7 @@ void selection(){ //character selection screen
     if(mouseX>=50 && mouseX<=350 && mouseY>=50 && mouseY<=350){ //if mouse hovers over this character
       fill(255,50);
       rect(50,50,300,300,30);
+
       if(mousePressed){ //chooses the character and starts the game
         chosen = 0;
         noStroke();
@@ -106,6 +107,7 @@ void selection(){ //character selection screen
     if(mouseX>=450 && mouseX<=750 && mouseY>=50 && mouseY<=350){ //if mouse hovers over this character
       fill(255,50);
       rect(450,50,300,300,30);
+
       if(mousePressed){ //chooses the character and starts the game
         chosen = 1;
         noStroke();
@@ -125,6 +127,7 @@ void selection(){ //character selection screen
     if(mouseX>=50 && mouseX<=350 && mouseY>=450 && mouseY<=750){ //if mouse hovers over this character
       fill(255,50);
       rect(50,450,300,300,30);
+      
       if(mousePressed){ //chooses the character and starts the game
         chosen = 2;
         noStroke();
@@ -160,7 +163,7 @@ void selection(){ //character selection screen
 void game_over(){
     background(milky);
 
-    //FOG!!! This plays on all screens
+    //FOG!!! This plays on all screens//
     if(fog_count%300==0){
       fog.add(new Fog()); //creates fog every 5 seconds
     }
@@ -187,11 +190,12 @@ void game_over(){
     text("GAME OVER", 400,250);
 
     //final score and highscore
+    //rect
     fill(255,30);
     stroke(255);
     rect(200,290,400,150,30);
     noStroke();
-
+    //text
     fill(255);
     textFont(font2);
     textSize(50);
@@ -205,7 +209,6 @@ void game_over(){
     rect(400-textWidth("restart "),490,2*textWidth("restart "),90);
     fill(255);
     text("RESTART", 400,550);
-
     //if the mouse hovers over the restart button: inverse the colors
     if(mouseX>=400-textWidth("restart ") && mouseX<=400+textWidth("restart ") && mouseY>=490 && mouseY<=580){
       fill(255);
@@ -257,6 +260,10 @@ void game_over(){
         delay(500); //wait half a second
         pregame = true;
         game_over = false;
+        
+        game_music.pause();
+        intro_music.loop();
+
         wait = true; //the game waits until the player starts to spawn walls and apply gravity
       }
     }
