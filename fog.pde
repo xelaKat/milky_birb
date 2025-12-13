@@ -1,20 +1,20 @@
 class Fog{
     float x,y;
-    int random;
+    int random; //decides which fog image to display
 
-    Fog(){
+    Fog(){ //creates fog randomly throughout the screen - used for creating fog in the very beginning
         x = 800;
         y = random(-200,700);
         random = int(random(3));
     }
 
-    Fog(float _x){
+    Fog(float _x){ //controllable fog creation
         x = _x;
         y = random(-200,700);
         random = int(random(3));
     }
 
-    void display(){
+    void display(){ //displays fog based on the random int
         if(int(random)==0){
             image(fog1, x,y);
         }
@@ -29,7 +29,7 @@ class Fog{
         }
     }
 
-    void move(){
+    void move(){ //slowly slowly slowly floats through the screen
         x-=0.1;
     }
 }
