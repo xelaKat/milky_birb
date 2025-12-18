@@ -68,8 +68,8 @@ let collision_y;
 
 function preload(){
     //font text
-    font1 = loadFont("YouthTouch.ttf",24); //imports font
-    font2 = loadFont("StylishCalligraphy.ttf",24); //another font
+    font1 = loadFont("YouthTouch.ttf"); //imports font
+    font2 = loadFont("StylishCalligraphy.ttf"); //another font
 
     //music
     intro_music = loadSound("The_Hitchhiker's_Guide_To_The_Galaxy.mp3");
@@ -142,11 +142,11 @@ function setup(){
 
 function draw(){ //for game events that are just a function, check the sequence tab
   if(selection){ //selection screen - comes before title screen to make sure it won't get skipped by the mouseclick logic when switching screens
-    selection();
+    selection_screen();
   }
 
   else if(pregame){ //title screen
-    pregame();
+    pregame_screen();
 
     //music
     if(game_music.isPlaying()){ //stops the game_music if it is playing
@@ -162,10 +162,11 @@ function draw(){ //for game events that are just a function, check the sequence 
     if(!game_music.isPlaying()){ //starts the game_music if it is not playing
       game_music.loop();
     }
+	  game_start_screen();
   } 
 
   else if(game_over){ //end screen
-    game_over();
+    game_over_screen();
   }
 
   fog_count++; //fog_count controls when to spawn fog - increases every frame
@@ -190,7 +191,7 @@ function keyPressed(){
 // ------- sequence ------- //
 // * This is where all game events are located * //
 
-function pregame(){ //the title screen
+function pregame_screen(){ //the title screen
     background(milky);
 
     //FOG!!! This plays on all screens//
@@ -246,7 +247,7 @@ function pregame(){ //the title screen
     }
 }
 
-function selection(){ //character selection screen
+function selection_screen(){ //character selection screen
   background(milky);
 
   //FOG!!! This plays on all screens//
@@ -355,7 +356,7 @@ function selection(){ //character selection screen
 
 }
 
-function game_start(){
+function game_start_screen(){
     background(0); //in case the image fails lol
     background(milky);
 
@@ -364,7 +365,7 @@ function game_start(){
       fog.push(new Fog(800)); //creates fog every 5 seconds
     }
 
-    for(let i = fog.size()-1; i>-1; i--){ //displays all fog, moves them, and deletes them
+    for(let i = fog.length-1; i>-1; i--){ //displays all fog, moves them, and deletes them
       fog[i].display();
       fog[i].move();
 
@@ -413,7 +414,7 @@ function game_start(){
       textFont(font2);
       textSize(80);
       fill(255);
-      text(int(score), 400, 150);
+      text(floor(score), 400, 150);
       textFont(font1);
     }
 
@@ -441,7 +442,7 @@ function game_start(){
     }
 }
 
-function game_over(){
+function game_over_screen(){
     background(milky);
 
     //FOG!!! This plays on all screens//
@@ -559,58 +560,58 @@ class Bird{
         this.y = 400; //spawns at 400
         this.size = 25; //the radius of the collision circle of the bird
         this.base_s = -7; //the default speed - constant
-        this.speed = base_s; //variable which gets added to the bird's y, which is how it jumps and how gravity works
+        this.speed = this.base_s; //variable which gets added to the bird's y, which is how it jumps and how gravity works
         this.gravity = 0.4; //changes the speed
     }
 
     display(){
         if(chosen==0){
-            image(moonfish, x-size-5, y-size-5); //wierd coordinates because the image is 60x60 while the bird is 50x50. the bird coords are also based on a circle, so the square png coords have to be adjusted
+            image(moonfish, this.x-this.size-5, this.y-this.size-5); //wierd coordinates because the image is 60x60 while the bird is 50x50. the bird coords are also based on a circle, so the square png coords have to be adjusted
             if(game_over){
-                image(moonfish_death, x-size-5, y-size-5); //death
+                image(moonfish_death, this.x-this.size-5, this.y-this.size-5); //death
             }
         }
         else if(chosen==1){
-            image(axolotl, x-size-5, y-size-5); //wierd coordinates because the image is 60x60 while the bird is 50x50. the bird coords are also based on a circle, so the square png coords have to be adjusted
+            image(axolotl, this.x-this.size-5, this.y-this.size-5); //wierd coordinates because the image is 60x60 while the bird is 50x50. the bird coords are also based on a circle, so the square png coords have to be adjusted
             if(game_over){
-                image(axolotl_death, x-size-5, y-size-5); //death
+                image(axolotl_death, this.x-this.size-5, this.y-this.size-5); //death
             }
         }
         else if(chosen==2){ 
-            image(chick, x-size-5,y-size-5); //wierd coordinates because the image is 60x60 while the bird is 50x50. the bird coords are also based on a circle, so the square png coords have to be adjusted
+            image(chick, this.x-this.size-5,this.y-this.size-5); //wierd coordinates because the image is 60x60 while the bird is 50x50. the bird coords are also based on a circle, so the square png coords have to be adjusted
             if(game_over){
-                image(chick_death, x-size-5, y-size-5); //death
+                image(chick_death, this.x-this.size-5, this.y-this.size-5); //death
             } 
         }
         else if(chosen==3){
-            image(earth, x-size-5, y-size-5); //wierd coordinates because the image is 60x60 while the bird is 50x50. the bird coords are also based on a circle, so the square png coords have to be adjusted
+            image(earth, this.x-this.size-5, this.y-this.size-5); //wierd coordinates because the image is 60x60 while the bird is 50x50. the bird coords are also based on a circle, so the square png coords have to be adjusted
             if(game_over){
-                image(earth_death, x-size-5, y-size-5); //death
+                image(earth_death, this.x-this.size-5, this.y-this.size-5); //death
             }
         }
         else{ //in case the image fails lol
             fill(255);
-            circle(x,y,size*2); //for reference, this is the collision circle
+            circle(this.x,this.y,this.size*2); //for reference, this is the collision circle
         }
     }
 
     down(){ //function applies the speed to the birb and also includes the gravity code
-        y+=speed;
+        this.y+=this.speed;
 
-        if(speed<15){ //gravity stops at speed 15 or else you'll fall too fast
-            speed += gravity;
+        if(this.speed<15){ //gravity stops at speed 15 or else you'll fall too fast
+            this.speed += this.gravity;
         }
     }
 
     up(){ //jump
-        speed = base_s; //resets the speed
-        y+=speed;
+        this.speed = this.base_s; //resets the speed
+        this.y+=this.speed;
     }
 
     death(){
-        if(y<=850){
-            y+=speed;
-            speed+=gravity*2; //makes the bird die faster
+        if(this.y<=850){
+            this.y+=this.speed;
+            this.speed+=this.gravity*2; //makes the bird die faster
         }
     }
 }
@@ -623,22 +624,22 @@ class Fog{
     }
 
     display(){ //displays fog based on the random int
-        if(int(random)==0){
-            image(fog1, x,y);
+        if(floor(this.random)==0){
+            image(fog1, this.x,this.y);
         }
-        else if(int(random)==1){
-            image(fog2, x,y);
+        else if(floor(this.random)==1){
+            image(fog2, this.x,this.y);
         }
-        else if(int(random)==2){
-            image(fog3, x,y);
+        else if(floor(this.random)==2){
+            image(fog3, this.x,this.y);
         }
-        else if(int(random)==3){
-            image(fog4, x,y);
+        else if(floor(this.random)==3){
+            image(fog4, this.x,this.y);
         }
     }
 
     move(){ //slowly slowly slowly floats through the screen
-        x-=0.1;
+        this.x-=0.1;
     }
 }
 
@@ -646,24 +647,24 @@ class Wall{
     constructor(_y){ //creats wall - only controls y variable, x controls itself
         this.x = 800; //spawns at the edge of the screen
         this.y = _y;
-        this.w - 51; //width and height are used for collision logic
+        this.w = 51; //width and height are used for collision logic
         this.h = 600;
         this.random = floor(random(3)); //determines the image of the wall
     }
 
     display(){
         if(random == 0){
-            image(wall1, x,y);
+            image(wall1, this.x,this.y);
         }
         if(random == 1){
-            image(wall2, x,y);
+            image(wall2, this.x,this.y);
         }
         if(random == 2){
-            image(wall3, x,y);
+            image(wall3, this.x,this.y);
         }
     }
 
     move(){ //walls move to create the illusion that the player is going forward
-        x-=3;
+        this.x-=3;
     }
 }
